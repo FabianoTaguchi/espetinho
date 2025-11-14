@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Cadastrar Usuário — Pedidos de Espetinho{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Cadastrar Usuário</h1>
+  <form class="form" method="post">
+    <div class="form-row">
+      <label for="login">Login</label>
+      <input type="text" id="login" name="login" required />
+    </div>
+    <div class="form-row">
+      <label for="password">Senha</label>
+      <input type="password" id="password" name="password" required />
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="button">Cadastrar</button>
+      <a class="button secondary" href="{{ url_for('login') }}">Voltar</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

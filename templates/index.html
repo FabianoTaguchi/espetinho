@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Início — Pedidos de Espetinho{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Controle de Pedidos de Espetinho</h1>
+  <p>Use o menu para acessar Clientes, Espetinhos, Bebidas e Pedidos.</p>
+  <div class="grid">
+    <a class="button" href="{{ url_for('clientes_view') }}">Cadastrar Clientes</a>
+    <a class="button" href="{{ url_for('produtos_view') }}">Cadastrar Espetinhos</a>
+    <a class="button" href="{{ url_for('bebidas_view') }}">Cadastrar Bebidas</a>
+    <a class="button" href="{{ url_for('pedidos_view') }}">Criar Pedido</a>
+  </div>
+  </section>
+{% endblock %}

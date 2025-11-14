@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Entrar — Pedidos de Espetinho{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Entrar</h1>
+  <form class="form" method="post">
+    <div class="form-row">
+      <label for="login">Login</label>
+      <input type="text" id="login" name="login" required />
+    </div>
+    <div class="form-row">
+      <label for="password">Senha</label>
+      <input type="password" id="password" name="password" required />
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="button">Entrar</button>
+    </div>
+    <p style="color:#9ca3af;margin-top:12px;">Por enquanto, qualquer login e senha são aceitos.</p>
+    <p style="margin-top:8px;"><a href="{{ url_for('registro') }}" class="menu-link">Criar uma conta</a></p>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block title %}Pedidos — Pedidos de Espetinho{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Novo Pedido</h1>
+  <form class="form" method="post" id="pedido-form">
+    <div class="form-row">
+      <label for="cliente_id">Cliente</label>
+      <select id="cliente_id" name="cliente_id" required>
+        <option value="">Selecione...</option>
+        {% for c in clientes %}
+          <option value="{{ c['id'] }}">{{ c['nome'] }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="card" style="margin:0;">
+      <h2>Espetinhos</h2>
+      <div id="espetinhos-list" class="form" style="margin-top:8px;">
+        <div class="form-row item-row">
+          <select name="item_produto_id">
+            <option value="">Selecione o espetinho...</option>
+            {% for p in produtos %}
+              <option value="{{ p['id'] }}">{{ p['nome'] }} — R$ {{ '%.2f'|format(p['preco']) }}</option>
+            {% endfor %}
+          </select>
+          <input type="number" name="item_produto_qtd" min="1" placeholder="Qtde" />
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="button secondary" onclick="addEspetinhoRow()">Adicionar espetinho</button>
+      </div>
+    </div>
+
+    <div class="card" style="margin:16px 0 0 0;">
+      <h2>Bebidas</h2>
+      <div id="bebidas-list" class="form" style="margin-top:8px;">
+        <div class="form-row item-row">
+          <select name="item_bebida_id">
+            <option value="">Selecione a bebida...</option>
+            {% for b in bebidas %}
+              <option value="{{ b['id'] }}">{{ b['nome'] }} {{ b['tamanho'] and '(' ~ b['tamanho'] ~ ')' or '' }} — R$ {{ '%.2f'|format(b['preco']) }}</option>
+            {% endfor %}
+          </select>
+          <input type="number" name="item_bebida_qtd" min="1" placeholder="Qtde" />
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="button secondary" onclick="addBebidaRow()">Adicionar bebida</button>
+      </div>
+    </div>
+
+    <div class="form-actions" style="margin-top:12px;">
+      <button type="submit" class="button">Salvar Pedido</button>
+      <button type="reset" class="button secondary">Limpar</button>
+    </div>
+  </form>
+</section>
+
+<section class="card">
+  <h2>Pedidos registrados</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Cliente</th>
+        <th>Itens</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in pedidos %}
+        <tr>
+          <td>{{ p['id'] }}</td>
+          <td>{{ p['cliente_nome'] }}</td>
+          <td>
+            {% for i in p['espetinhos'] %}
+              <div>Espetinho: {{ i['nome'] }} x{{ i['qtd'] }} — R$ {{ '%.2f'|format(i['total']) }}</div>
+            {% endfor %}
+            {% for i in p['bebidas'] %}
+              <div>Bebida: {{ i['nome'] }} {{ i['tamanho'] or '' }} x{{ i['qtd'] }} — R$ {{ '%.2f'|format(i['total']) }}</div>
+            {% endfor %}
+          </td>
+          <td>R$ {{ '%.2f'|format(p['total']) }}</td>
+        </tr>
+      {% else %}
+        <tr><td colspan="4">Nenhum pedido registrado.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<script>
+  function addRow(containerId, namePrefix) {
+    const container = document.getElementById(containerId);
+    const row = document.createElement('div');
+    row.className = 'form-row item-row';
+    row.innerHTML = container.querySelector('.item-row').innerHTML;
+    container.appendChild(row);
+  }
+  function addEspetinhoRow() { addRow('espetinhos-list', 'item_produto'); }
+  function addBebidaRow() { addRow('bebidas-list', 'item_bebida'); }
+</script>
+{% endblock %}

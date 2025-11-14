@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Pedidos de Espetinho{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <div class="brand"><a href="{{ url_for('index') }}" style="color:inherit;text-decoration:none;">EspetinhosApp</a></div>
+        {% if show_menu %}
+        <ul class="menu">
+          <li><a href="{{ url_for('clientes_view') }}">Clientes</a></li>
+          <li><a href="{{ url_for('produtos_view') }}">Espetinhos</a></li>
+          <li><a href="{{ url_for('bebidas_view') }}">Bebidas</a></li>
+          <li><a href="{{ url_for('pedidos_view') }}">Pedidos</a></li>
+          <li style="margin-left:auto;"><a href="{{ url_for('logout') }}">Logoff</a></li>
+        </ul>
+        {% endif %}
+      </div>
+    </nav>
+    <main class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <section class="card">
+            {% for category, message in messages %}
+              <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+          </section>
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+    <script>
+      setTimeout(function(){
+        var els = document.querySelectorAll('.flash');
+        for (var i=0;i<els.length;i++){ els[i].style.display='none'; }
+      }, 3000);
+    </script>
+  </body>
+</html>

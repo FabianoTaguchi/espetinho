@@ -1,0 +1,52 @@
+CREATE DATABASE IF NOT EXISTS espetinho CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE espetinho;
+
+-- Domínio de pedidos de espetinho
+CREATE TABLE IF NOT EXISTS cliente (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL,
+  cpf VARCHAR(14) UNIQUE,
+  email VARCHAR(255),
+  telefone VARCHAR(20)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS produto (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL,
+  preco DECIMAL(10,2) NOT NULL
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS bebida (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL,
+  tamanho VARCHAR(50),
+  preco DECIMAL(10,2) NOT NULL
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS pedido (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  cliente_id INT NOT NULL,
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_pedido_cliente FOREIGN KEY (cliente_id) REFERENCES cliente(id) ON DELETE RESTRICT
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS pedido_item (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  pedido_id INT NOT NULL,
+  tipo ENUM('espetinho','bebida') NOT NULL,
+  referencia_id INT NOT NULL,
+  nome VARCHAR(255) NOT NULL,
+  tamanho VARCHAR(50),
+  qtd INT UNSIGNED NOT NULL,
+  preco_unit DECIMAL(10,2) NOT NULL,
+  total DECIMAL(10,2) NOT NULL,
+  CONSTRAINT fk_item_pedido FOREIGN KEY (pedido_id) REFERENCES pedido(id) ON DELETE CASCADE,
+  INDEX idx_pedido_item_pedido (pedido_id)
+) ENGINE=InnoDB;
+
+-- Usuários para autenticação
+CREATE TABLE IF NOT EXISTS usuario (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  login VARCHAR(50) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL
+) ENGINE=InnoDB;
