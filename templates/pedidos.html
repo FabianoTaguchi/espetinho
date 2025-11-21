@@ -91,14 +91,14 @@
 </section>
 
 <script>
-  function addRow(containerId, namePrefix) {
+  function addRow(containerId) {
     const container = document.getElementById(containerId);
     const row = document.createElement('div');
     row.className = 'form-row item-row';
     row.innerHTML = container.querySelector('.item-row').innerHTML;
     container.appendChild(row);
   }
-  function addEspetinhoRow() { addRow('espetinhos-list', 'item_produto'); }
-  function addBebidaRow() { addRow('bebidas-list', 'item_bebida'); }
+  function addEspetinhoRow() { addRow('espetinhos-list'); }
+  function addBebidaRow() { addRow('bebidas-list'); }
 </script>
 {% endblock %}
