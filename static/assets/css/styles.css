@@ -26,3 +26,15 @@ body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial
 .flash.success { background: #fff5cc; border: 1px solid #ffe28a; }
 .flash.warning { background: #fff1a8; border: 1px solid #f1d262; }
 .flash.danger { background: #ffe4e1; border: 1px solid #ffb3ab; }
+
+/* Registro: card com fundo preto e elementos brancos */
+.card.card-register-dark { background: #000000; border-color: #000000; color: #ffffff; }
+.card.card-register-dark h1 { color: #ffffff; }
+.card.card-register-dark .form-row label { color: #ffffff; }
+.card.card-register-dark .form-row input,
+.card.card-register-dark .form-row select { background: transparent; color: #ffffff; border-color: #ffffff; }
+.card.card-register-dark .form-row input::placeholder { color: #ffffff; opacity: 0.7; }
+.card.card-register-dark .form-actions .button { background: transparent; color: #ffffff; border-color: #ffffff; }
+.card.card-register-dark .form-actions .button:hover { background: #ffffff; color: #000000; }
+.card.card-register-dark .form-actions .button.secondary { background: transparent; color: #ffffff; border-color: #ffffff; }
+.card.card-register-dark .form-actions .button.secondary:hover { background: #222222; }
